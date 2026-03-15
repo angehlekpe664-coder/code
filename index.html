@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>HACKANGE | Solutions Digitales Avancées</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HACKANGE - Expert en Développement Fullstack, Sécurité Informatique et Solutions Digitales Cyberpunk">
+    
+    <!-- Préchargement des ressources critiques -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔒</text></svg>">
+
+    <style>
+        /* Critical CSS inlined for immediate rendering */
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-secondary: #111827;
+            --text-primary: #ffffff;
+            --text-secondary: #a0aec0;
+            --accent-primary: #00ff88;
+            --accent-secondary: #00ffaa;
+            --accent-glow: rgba(0, 255, 136, 0.4);
+            --accent-glow-strong: rgba(0, 255, 136, 0.6);
+            --gradient-primary: linear-gradient(135deg, #00ff88 0%, #00ffaa 100%);
+            --gradient-bg: radial-gradient(circle at 50% 50%, #0a0e17 0%, #070a14 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+        
+        .hackange-loader {
+            position: relative;
+            width: 120px;
+            height: 120px;
+        }
+    </style>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark">
+    <!-- Écran de chargement -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="hackange-loader">
+            <div class="hexagon"></div>
+            <div class="hexagon"></div>
+            <div class="hexagon"></div>
+        </div>
+        <div class="loading-text" data-text="INITIALISATION_SYSTEME">INITIALISATION_SYSTEME</div>
+        <div class="loading-progress">
+            <div class="progress-bar"></div>
+        </div>
+    </div>
+
+    <!-- Grid d'arrière-plan -->
+    <div class="background-grid"></div>
+    
+    <!-- Particles System -->
+    <div class="particles-container" id="particles"></div>
+    
+    <!-- Lignes de connexion -->
+    <div class="connection-lines"></div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo-container">
+                <div class="logo-hologram">
+                    <div class="hologram-base"></div>
+                    <div class="logo-text">HACKANGE</div>
+                    <div class="hologram-glow"></div>
+                </div>
+            </div>
+            
+            <div class="nav-main">
+                <ul class="nav-links">
+                    <li class="nav-item">
+                        <a href="#services" class="nav-link">
+                           
+                            <span class="link-text">Services</span>
+                            <span class="link-line"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#projects" class="nav-link">
+                           
+                            <span class="link-text">Projets</span>
+                            <span class="link-line"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#about" class="nav-link">
+                            
+                            <span class="link-text">À propos</span>
+                            <span class="link-line"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-cta" id="contactBtn">
+                            <span class="cta-glow"></span>
+                            <span class="cta-text">CONTACT</span>
+                        </button>
+                    </li>
+                </ul>
+                
+                <div class="nav-actions">
+                    <div class="theme-switch-wrapper">
+                        <div class="theme-switch">
+                            <input type="checkbox" id="themeSwitch" class="theme-checkbox">
+                            <label for="themeSwitch" class="theme-label">
+                                <span class="theme-icon">🌙</span>
+                                <span class="theme-icon">☀️</span>
+                                <div class="theme-ball"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bouton menu hamburger déplacé hors de .nav-main pour être toujours visible sur mobile -->
+            <button class="nav-menu-toggle" id="menuToggle" aria-label="Menu">
+                <span class="menu-line"></span>
+                <span class="menu-line"></span>
+                <span class="menu-line"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero-section">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-title-wrapper">
+                    <h1 class="hero-title">
+                        <span class="title-line title-line-1">DIGITAL</span>
+                        <span class="title-line title-line-2">SOLUTIONS</span>
+                        <span class="title-line title-line-3">REDEFINED</span>
+                    </h1>
+                    
+                    <div class="title-glitch">
+                        <div class="glitch-layer glitch-1">DIGITAL SOLUTIONS REDEFINED</div>
+                        <div class="glitch-layer glitch-2">DIGITAL SOLUTIONS REDEFINED</div>
+                        <div class="glitch-layer glitch-3">DIGITAL SOLUTIONS REDEFINED</div>
+                    </div>
+                </div>
+                
+                <div class="hero-subtitle">
+                    <div class="subtitle-line">
+                        <span class="typed-text" id="typedText"></span>
+                        <span class="cursor">|</span>
+                    </div>
+                </div>
+                
+                <div class="hero-actions">
+                    <button class="hero-cta primary-cta" id="mainCta">
+                        <span class="cta-sparkles"></span>
+                        <span class="cta-text">DÉMARRER LE PROJET</span>
+                        <span class="cta-arrow">⟶</span>
+                    </button>
+                    
+                    <button class="hero-cta secondary-cta" id="exploreBtn">
+                        <span class="cta-text">EXPLORER LES PROJETS</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="floating-cube">
+                    <div class="cube-face cube-front"></div>
+                    <div class="cube-face cube-back"></div>
+                    <div class="cube-face cube-right"></div>
+                    <div class="cube-face cube-left"></div>
+                    <div class="cube-face cube-top"></div>
+                    <div class="cube-face cube-bottom"></div>
+                    <div class="cube-glow"></div>
+                </div>
+                
+                <div class="orbital-ring">
+                    <div class="ring-particle"></div>
+                    <div class="ring-particle"></div>
+                    <div class="ring-particle"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hero-scroll-indicator">
+            <div class="scroll-line">
+                <div class="scroll-dot"></div>
+            </div>
+            <span class="scroll-text">SCROLL</span>
+        </div>
+    </header>
+
+    <!-- SERVICES -->
+    <section class="services-section" id="services">
+        <div class="section-header">
+            <div class="section-label">
+                <span class="label-number">01</span>
+                <span class="label-text">EXPERTISE</span>
+            </div>
+            <h2 class="section-title">
+                <span class="title-text">Services Spécialisés</span>
+                <span class="title-highlight">d'Élite</span>
+            </h2>
+        </div>
+        
+        <div class="services-grid">
+            <article class="service-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <div class="icon-wrapper">
+                            <span>👨‍💻</span>
+                        </div>
+                        <div class="icon-glow"></div>
+                    </div>
+                    <div class="card-badge">Fullstack</div>
+                </div>
+                
+                <h3 class="card-title">Développement Avancé</h3>
+                <p class="card-description">
+                    Architecture de systèmes scalables avec Django, React, et Flutter. 
+                    Performance optimisée et code maintenable.
+                </p>
+                
+                <div class="card-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">TypeScript</span>
+                    <span class="tech-tag">Docker</span>
+                </div>
+                
+                <div class="card-hover">
+                    <div class="hover-glow"></div>
+                </div>
+            </article>
+            
+            <article class="service-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <div class="icon-wrapper">
+                            <span>🛡️</span>
+                        </div>
+                        <div class="icon-glow"></div>
+                    </div>
+                    <div class="card-badge">Sécurité</div>
+                </div>
+                
+                <h3 class="card-title">Pentesting Éthique</h3>
+                <p class="card-description">
+                    Audit de sécurité complet, tests d'intrusion et renforcement 
+                    des infrastructures contre les menaces modernes.
+                </p>
+                
+                <div class="card-tech">
+                    <span class="tech-tag">OWASP</span>
+                    <span class="tech-tag">Kali</span>
+                    <span class="tech-tag">Metasploit</span>
+                </div>
+                
+                <div class="card-hover">
+                    <div class="hover-glow"></div>
+                </div>
+            </article>
+            
+            <article class="service-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <div class="icon-wrapper">
+                            <span>⚡</span>
+                        </div>
+                        <div class="icon-glow"></div>
+                    </div>
+                    <div class="card-badge">Infra</div>
+                </div>
+                
+                <h3 class="card-title">Architecture Cloud</h3>
+                <p class="card-description">
+                    Déploiement et orchestration avec Kubernetes, configuration 
+                    CI/CD et optimisation des performances serveur.
+                </p>
+                
+                <div class="card-tech">
+                    <span class="tech-tag">AWS</span>
+                    <span class="tech-tag">K8s</span>
+                    <span class="tech-tag">Terraform</span>
+                </div>
+                
+                <div class="card-hover">
+                    <div class="hover-glow"></div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- PROJETS -->
+    <section class="projects-section dark-section" id="projects">
+        <div class="section-header">
+            <div class="section-label">
+                <span class="label-number">02</span>
+                <span class="label-text">PORTFOLIO</span>
+            </div>
+            <h2 class="section-title">
+                <span class="title-text">Réalisations</span>
+                <span class="title-highlight">Innovantes</span>
+            </h2>
+        </div>
+        
+        <div class="projects-showcase">
+            <div class="project-slider">
+                <div class="slider-track">
+                    <div class="project-slide active">
+                        <div class="slide-visual">
+                            <div class="project-image" id="project-img-1"></div>
+                            <div class="project-overlay">
+                                <div class="overlay-content">
+                                    <span class="overlay-badge">LIVE</span>
+                                    <h3 class="overlay-title">Plateforme FinTech</h3>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="slide-content">
+                            <div class="project-meta">
+                                <span class="meta-category">FinTech</span>
+                                <span class="meta-year">2024</span>
+                            </div>
+                            <h3 class="project-title">Système de Trading Automatisé</h3>
+                            <p class="project-description">
+                                Architecture microservices avec traitement temps réel, 
+                                analyse prédictive et interface dashboard avancée.
+                            </p>
+                            <div class="project-stats">
+                                <div class="stat">
+                                    <span class="stat-value">99.9%</span>
+                                    <span class="stat-label">Uptime</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value">50ms</span>
+                                    <span class="stat-label">Latence</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value">10k+</span>
+                                    <span class="stat-label">Requêtes/jour</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-slide">
+                        <div class="slide-visual">
+                            <div class="project-image" id="project-img-2"></div>
+                            <div class="project-overlay">
+                                <div class="overlay-content">
+                                    <span class="overlay-badge">SECURE</span>
+                                    <h3 class="overlay-title">Audit Bancaire</h3>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="slide-content">
+                            <div class="project-meta">
+                                <span class="meta-category">Banque</span>
+                                <span class="meta-year">2024</span>
+                            </div>
+                            <h3 class="project-title">Sécurité Infrastructure</h3>
+                            <p class="project-description">
+                                Audit de sécurité complet avec rapport de vulnérabilités 
+                                et implémentation de mesures de protection avancées.
+                            </p>
+                            <div class="project-stats">
+                                <div class="stat">
+                                    <span class="stat-value">100%</span>
+                                    <span class="stat-label">Conformité</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value">24/7</span>
+                                    <span class="stat-label">Monitoring</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value">0</span>
+                                    <span class="stat-label">Incidents</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-slide">
+                        <div class="slide-visual">
+                            <div class="project-image" id="project-img-3"></div>
+                            <div class="project-overlay">
+                                <div class="overlay-content">
+                                    <span class="overlay-badge">MOBILE</span>
+                                    <h3 class="overlay-title">App HealthTech</h3>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="slide-content">
+                            <div class="project-meta">
+                                <span class="meta-category">Santé</span>
+                                <span class="meta-year">2024</span>
+                            </div>
+                            <h3 class="project-title">Suivi Médical Intelligent</h3>
+                            <p class="project-description">
+                                Application mobile cross-platform avec synchronisation 
+                                cloud et interface utilisateur optimisée pour patients.
+                            </p>
+                            <div class="project-stats">
+                                <div class="stat">
+                                    <span class="stat-value">4.9★</span>
+                                    <span class="stat-label">Rating</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value">50k+</span>
+                                    <span class="stat-label">Utilisateurs</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value">99%</span>
+                                    <span class="stat-label">Satisfaction</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="slider-controls">
+                    <button class="slider-btn prev-btn">
+                        <span class="btn-arrow">←</span>
+                    </button>
+                    <div class="slider-dots">
+                        <span class="dot active"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                    <button class="slider-btn next-btn">
+                        <span class="btn-arrow">→</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECHNOLOGIES -->
+    <section class="tech-section" id="about">
+        <div class="section-header">
+            <div class="section-label">
+                <span class="label-number">03</span>
+                <span class="label-text">TECH STACK</span>
+            </div>
+            <h2 class="section-title">
+                <span class="title-text">Technologies</span>
+                <span class="title-highlight">Maîtrisées</span>
+            </h2>
+        </div>
+        
+        <div class="tech-matrix">
+            <div class="tech-column">
+                <div class="tech-category">Frontend</div>
+                <div class="tech-items">
+                    <div class="tech-item" data-skill="95">
+                        <span class="tech-name">React</span>
+                        <div class="tech-bar">
+                            <div class="tech-progress"></div>
+                        </div>
+                    </div>
+                    <div class="tech-item" data-skill="90">
+                        <span class="tech-name">Vue.js</span>
+                        <div class="tech-bar">
+                            <div class="tech-progress"></div>
+                        </div>
+                    </div>
+                    <div class="tech-item" data-skill="85">
+                        <span class="tech-name">TypeScript</span>
+                        <div class="tech-bar">
+                            <div class="tech-progress"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tech-column">
+                <div class="tech-category">Backend</div>
+                <div class="tech-items">
+                    <div class="tech-item" data-skill="98">
+                        <span class="tech-name">Django</span>
+                        <div class="tech-bar">
+                            <div class="tech-progress"></div>
+                        </div>
+                    </div>
+                    <div class="tech-item" data-skill="92">
+                        <span class="tech-name">Node.js</span>
+                        <div class="tech-bar">
+                            <div class="tech-progress"></div>
+                        </div>
+                    </div>
+                    <div class="tech-item" data-skill="88">
+                        <span class="tech-name">FastAPI</span>
+                        <div class="tech-bar">
+                            <div class="tech-progress"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tech-column">
+                <div class="tech-category">DevOps</div>
+                <div class="tech-items">
+                    <div class="tech-item" data-skill="90">
+                        <span class="tech-name">Docker</span>
+                        <div class="tech-bar">
+                            <div class="tech-progress"></div>
+                        </div>
+                    </div>
+                    <div class="tech-item" data-skill="85">
+                        <span class="tech-name">Kubernetes</span>
+                        <div class="tech-bar">
+                            <div class="tech-progress"></div>
+                        </div>
+                    </div>
+                    <div class="tech-item" data-skill="82">
+                        <span class="tech-name">AWS</span>
+                        <div class="tech-bar">
+                            <div class="tech-progress"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tech-visual">
+            <div class="tech-orbit">
+                <div class="orbit-ring">
+                    <div class="orbiting-tech">React</div>
+                    <div class="orbiting-tech">Django</div>
+                    <div class="orbiting-tech">Docker</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact-section dark-section">
+        <div class="contact-container">
+            <div class="contact-header">
+                <h2 class="contact-title">
+                    <span class="title-line">Prêt à</span>
+                    <span class="title-line accent-line">Transformer</span>
+                    <span class="title-line">Votre Vision ?</span>
+                </h2>
+                <p class="contact-subtitle">
+                    Discutons de votre projet et concevons ensemble une solution sur mesure.
+                </p>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="info-card">
+                        <div class="info-icon">📧</div>
+                        <h3 class="info-title">Email</h3>
+                        <p class="info-text">ange.hlekpe664@gmail.com</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-icon">📱</div>
+                        <h3 class="info-title">Téléphone</h3>
+                        <p class="info-text">+229 57576892</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-icon">🌐</div>
+                        <h3 class="info-title">Réseaux</h3>
+                        <div class="social-links">
+                            <a href="https://github.com/angehlekpe664-coder" class="social-link">GitHub</a>
+                            <a href="https://www.linkedin.com/in/hlekpe-ange-a3932538a" class="social-link">LinkedIn</a>
+                            <a href="" class="social-link">Twitter</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form-wrapper">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <input type="text" name="name" placeholder="Nom complet" required class="form-input">
+                            <div class="input-line"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="email" name="email" placeholder="Email professionnel" required class="form-input">
+                            <div class="input-line"></div>
+                        </div>
+                        Q
+                        <div class="form-group">
+                            <select name="service" required class="form-select">
+                                <option value="" disabled selected>Type de projet</option>
+                                <option value="development">Développement</option>
+                                <option value="security">Sécurité</option>
+                                <option value="consulting">Consultation</option>
+                            </select>
+                            <div class="input-line"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <textarea name="message" placeholder="Décrivez votre projet..." required class="form-textarea"></textarea>
+                            <div class="input-line"></div>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-glow"></span>
+                            <span class="btn-text">Envoyer la demande</span>
+                            <span class="btn-arrow">⟶</span>
+                        </button>
+                        
+                        <div class="form-message" id="formMessage"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">HACKANGE</div>
+                    <p class="footer-tagline">
+                        Solutions digitales pour l'ère cyberpunk
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="link-group">
+                        <h4 class="link-title">Navigation</h4>
+                        <a href="#services" class="footer-link">Services</a>
+                        <a href="#projects" class="footer-link">Projets</a>
+                        <a href="#about" class="footer-link">Expertise</a>
+                    </div>
+                    
+                    <div class="link-group">
+                        <h4 class="link-title">Expertise</h4>
+                        <a href="#" class="footer-link">Développement</a>
+                        <a href="#" class="footer-link">Sécurité</a>
+                        <a href="#" class="footer-link">DevOps</a>
+                    </div>
+                    
+                    <div class="link-group">
+                        <h4 class="link-title">Légal</h4>
+                        <a href="#" class="footer-link">Confidentialité</a>
+                        <a href="#" class="footer-link">Conditions</a>
+                        <a href="#" class="footer-link">Mentions légales</a>
+                    </div>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h4 class="newsletter-title">Restez connecté</h4>
+                    <p class="newsletter-text">
+                        Recevez les dernières actualités tech et insights.
+                    </p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Votre email" class="newsletter-input">
+                        <button class="newsletter-btn">S'abonner</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    © 2025 HACKANGE. Tous droits réservés.
+                </div>
+                
+                <div class="footer-social">
+                    <a href="https://github.com/angehlekpe664-coder" class="social-icon" aria-label="GitHub">
+                        <span class="icon-text">GH</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/hlekpe-ange-a3932538a" class="social-icon" aria-label="LinkedIn">
+                        <span class="icon-text">IN</span>
+                    </a>
+                    <a href="#" class="social-icon" aria-label="Twitter">
+                        <span class="icon-text">TW</span>
+                    </a>
+                    <a href="#" class="social-icon" aria-label="Instagram">
+                        <span class="icon-text">IG</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL CONTACT -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="modal-title">Contact Rapide</h3>
+                <button class="modal-close" id="modalClose">
+                    <span class="close-icon">×</span>
+                </button>
+            </div>
+            <div class="modal-content">
+                <!-- Formulaire modal -->
+            </div>
+        </div>
+    </div>
+
+    <!-- CURSOR PERSONNALISÉ -->
+    <div class="custom-cursor" id="cursor">
+        <div class="cursor-dot"></div>
+        <div class="cursor-ring"></div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="script.js" defer></script>
+</body>
+</html>
